@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM starter Python template.
+
+Parameters:
+  Secret:
+    Type: String
+    Description: Secret parameter value.
+    Default: ''
+
+  PythonVersion:
+    Type: String
+    Description: Python version
+    Default: python3.7
+
+Globals:
+  Function:
+    Timeout: 45
+    Runtime: !Ref PythonVersion
+    CodeUri: ./src/functions
+    Environment:
+      Variables:
+        Secret: !Ref Secret
+    Layers:
+      - !Ref DependenciesLayer
+
+Resources:
+  DependenciesLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: sam-dependencies
+      ContentUri: ./
+      CompatibleRuntimes:
+        - !Ref PythonVersion
+      RetentionPolicy: Retain
+    Metadata:
+      BuildMethod: !Ref PythonVersion
+
+  HelloFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: hello.handler
+      Events:
+        Hello:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
