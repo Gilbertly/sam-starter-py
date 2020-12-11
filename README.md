@@ -6,6 +6,9 @@ $ pipenv shell
 
 // install dependencies
 $ pipenv install && pipenv install --dev
+
+// run linter and tests
+$ autopep8 --in-place --aggressive -r src && flake8 && pytest --cov=./
 ```
 
 ## Deployment
