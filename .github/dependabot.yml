@@ -1,0 +1,28 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "06:30"
+  reviewers:
+  - gilbertly
+  labels:
+  - dependabot
+  allow:
+  - dependency-type: production
+  ignore:
+  - dependency-name: python-dotenv
+    versions:
+    - 0.16.0
+  - dependency-name: urllib3
+    versions:
+    - 1.26.3
+  - dependency-name: sentry-sdk
+    versions:
+    - 0.19.5
+    - 0.20.1
+    - 0.20.3
+  - dependency-name: botocore
+    versions:
+    - 1.19.59
